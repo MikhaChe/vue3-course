@@ -1,0 +1,115 @@
+<template>
+  <div class="app">
+    <form @submit.prevent>
+      <h4>Создание поста</h4>
+      <input 
+        v-bind:value="title" 
+        @input="title = $event.target.value"
+        class="input" 
+        type="text" 
+        placeholder="Название"
+        >
+      <input 
+        v-bind:value="body" 
+        @input="body = $event.target.value"
+        class="input" 
+        type="text" 
+        placeholder="Описание"
+        >
+      <button 
+      class="btn"
+      @click="createPost"
+      >Создать</button>
+    </form>
+
+    <post-list :posts="posts"/>
+  </div>
+
+</template>
+
+<script>
+  import PostList from '@/components/PostList';  
+
+
+  export default {
+    components: {
+      PostList 
+    },
+    data() {
+      return {
+        posts: [
+          {
+            id: 1,
+            title: 'JavaScript',
+            body: 'Описание поста'
+          },
+          {
+            id: 2,
+            title: 'JavaScript 2',
+            body: 'Описание поста 2'
+          },
+          {
+            id: 3,
+            title: 'JavaScript 3',
+            body: 'Описание поста 3'
+          },
+          {
+            id: 4,
+            title: 'JavaScript 4',
+            body: 'Описание поста 4'
+          },
+        ],
+
+        title: '',
+        body: '',
+      }
+    },
+    methods: {
+      createPost() {
+        const newPost = {
+          id: Date.now(),
+          title: this.title,
+          body: this.body,
+        }
+        this.posts.push(newPost);
+        this.title = '';
+        this.body = '';
+      },
+    }
+  }
+</script>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .app {
+    padding: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  .input {
+    width: 100%;
+    border: 1px solid teal;
+    padding: 10px 15px;
+    margin-top: 15px;
+  }
+  .btn {
+    margin-top: 15px;
+    align-self: flex-end;
+    padding: 10px 15px;
+    background: none;
+    color: teal;
+    border: 1px solid teal;
+    ;
+  }
+
+  
+</style>
+
+
