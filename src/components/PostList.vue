@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="post" v-for="el in posts">
+    <div class="post" v-for="el in posty">
       <div><strong>Name:</strong> {{ el.title}}</div>
       <div><strong>Description:</strong> {{ el.body}}</div>
     </div>
@@ -10,7 +10,7 @@
 <script>
 export default {
   props: {
-    posts: {
+    posty: {
       type: Array, 
       required: true
     }
