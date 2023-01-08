@@ -1,14 +1,14 @@
 <template>
   <div class="post">
-    <div><strong>Name:</strong> {{ el.title}}</div>
-    <div><strong>Description:</strong> {{ el.body}}</div>
+    <div><strong>Name:</strong> {{ postOne.title}}</div>
+    <div><strong>Description:</strong> {{ postOne.body}}</div>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    post: {
+    postOne: {
       type: Object,
       required: true,
     }

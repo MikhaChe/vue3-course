@@ -4,7 +4,7 @@
       @create="createPost"    
     />
     <post-list 
-      :posty="posts"
+      :posts="postsArray"
     />
   </div>
 
@@ -20,7 +20,7 @@
     },
     data() {
       return {
-        posts: [
+        postsArray: [
           {
             id: 1,
             title: 'JavaScript',
@@ -46,7 +46,7 @@
     },
     methods: {
       createPost(post) {
-        this.posts.push(post);
+        this.postsArray.push(post);
       }
       
     }
