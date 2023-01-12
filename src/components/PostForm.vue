@@ -7,13 +7,13 @@
       
       type="text" 
       placeholder="Название"
-      >
+      />
     <my-input 
       v-model="post.body"
        
       type="text" 
       placeholder="Описание"
-      >
+      />
 
     <my-button 
     style="margin-top: 15px;"
@@ -25,9 +25,12 @@
 </template>
 
 <script>
-
+import MyInput from './UI/MyInput.vue';
+import MyButton from './UI/MyButton.vue';
 export default {
-
+  components: {
+    MyInput, MyButton
+  },
   data() {
     return {
       post: {
@@ -46,8 +49,8 @@ export default {
         this.post.id = Date.now();
         this.$emit('create', this.post)
         this.post = {
-          title: '',
-          body: '',
+          // title: '',
+          // body: '',
         }
         
       }
