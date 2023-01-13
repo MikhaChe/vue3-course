@@ -4,6 +4,8 @@
     <post-item 
       v-for="el in posts" 
       :postOne="el"
+      :key="el.id"
+      @remove="$emit('remove', el)"
     />
       
   </div>
@@ -11,6 +13,7 @@
 
 <script>
 import PostItem from '@/components/PostItem';
+
 export default {
   components: { PostItem },
   props: {

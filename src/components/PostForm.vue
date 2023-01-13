@@ -4,7 +4,7 @@
 
     <my-input 
       v-model="post.title"
-      
+       
       type="text" 
       placeholder="Название"
       />
@@ -25,12 +25,9 @@
 </template>
 
 <script>
-import MyInput from './UI/MyInput.vue';
-import MyButton from './UI/MyButton.vue';
+
 export default {
-  components: {
-    MyInput, MyButton
-  },
+
   data() {
     return {
       post: {

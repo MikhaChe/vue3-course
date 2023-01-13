@@ -5,6 +5,7 @@
     />
     <post-list 
       :posts="postsArray"
+      @remove="removePost"
     />
   </div>
 
@@ -47,6 +48,10 @@
     methods: {
       createPost(post) {
         this.postsArray.push(post);
+      },
+      removePost(post) {
+        console.log("Function is called")
+        this.postsArray = this.postsArray.filter(p => p.id !== post.id)
       }
       
     }
