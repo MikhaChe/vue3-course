@@ -1,12 +1,18 @@
 <template>
   <div class="app">
     <h1>Страница с постами</h1>
-    <my-button @click="fetchPosts">Get posts!</my-button>
-    <my-button
-      @click="showDialog"
-      style="margin: 15px 0;"
-    >
-      Создать пост</my-button>
+    <div class="app__btns">
+      <my-button
+        @click="showDialog"
+      >
+        Создать пост
+      </my-button>
+      <my-select
+        v-model="selectedSort"
+        :options="sortOptions"
+      />
+    </div>
+    
     <my-dialog v-model:show="dialogVisible">
       <post-form
         @create="createPost"    
@@ -14,9 +20,11 @@
     </my-dialog>
     
     <post-list 
-      :posts="postsArray"
+      :posts="sortedPosts"
       @remove="removePost"
+      v-if="!isPostLoading"
     />
+    <div v-else>Loading...</div>
   </div>
 
 </template>
@@ -36,6 +44,12 @@
         postsArray: [],
         dialogVisible: false,
         modificatorValue: '',
+        isPostLoading: false,
+        selectedSort: '',
+        sortOptions: [
+          {value: 'title', name: 'По названию'},
+          {value: 'body', name: 'По содержимому'},
+        ]
       }
     },
     methods: {
@@ -52,16 +66,35 @@
       },
       async fetchPosts() {
         try {
-          const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
-          this.postsArray = response.data;
+          this.isPostLoading = true;
+            const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+            this.postsArray = response.data;
+            
+          
         } catch (e) {
           alert('Error!');
+        } finally {
+          this.isPostLoading = false;
         }
       }
     },
     mounted() {
         this.fetchPosts();
-    }
+    },
+    computed: {
+      sortedPosts() {
+        return [...this.postsArray].sort((post1, post2) => {
+          return post1[this.selectedSort]?.localeCompare(post2[this.selectedSort])
+        })
+      }
+    },
+    watch: {
+      // selectedSort(newValue) {
+      //   this.postsArray.sort((post1, post2) => {
+      //     return post1[newValue]?.localeCompare(post2[newValue])
+      //   })
+      // }
+    },
   }
 </script>
 
@@ -73,6 +106,12 @@
   }
   .app {
     padding: 20px;
+  }
+
+  .app__btns {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
   }
 
 </style>

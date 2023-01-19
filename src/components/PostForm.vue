@@ -52,6 +52,11 @@ export default {
         
       }
   },
+  watch: {
+    post(newVal) {
+      console.log(newVal);
+    }
+  }
 };
 </script>
 
